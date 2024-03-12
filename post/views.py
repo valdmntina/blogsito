@@ -35,3 +35,29 @@ def eliminar(request, id):
     post = Post.objects.get(id=id)
     post.delete()
     return HttpResponse("eliminao 😂")
+
+
+def consultas(request):
+#obtener todos los elementos de post
+    posts = Post.objects.all()
+#filtrar la consulta por una condicion
+    filtro = Post.objects.filter(titulo='valentina')
+#obtener un unico registro
+    post = Post.objects.get(id=12)
+#obtener 20 primeros elementos
+    limit = Post.objects.all()[:20]
+#obtener 6 resultados partiendo del 15
+    limit2 = Post.objects.all()[15:21]
+#obtener los registros ordenados por el titulo
+    orden = Post.objects.all().order_by('cuerpo')[:10]
+#obtener elementos que su id sea menor o igual que 20
+    menor = Post.objects.filter(id__lte=20)
+    return render (request, 'index.html', {
+        'posts': posts,
+        'filtro': filtro,
+        'post': post,
+        'limit': limit,
+        'limit2': limit2,
+        'orden': orden,
+        'menor': menor
+        })
